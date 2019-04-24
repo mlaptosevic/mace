@@ -21,7 +21,7 @@ class HomePage extends React.Component {
 
     render() {
         const maceComponents = this.state.mace.map((maca) => {
-            return (<Maca key={maca.id} name={maca.name} likes={maca.likes} imageUrl={maca.imageUrl}/>);
+            return (<Maca key={maca.id} id=={maca.id} name={maca.name} likes={maca.likes} imageUrl={maca.imageUrl}/>);
         });
 
         return (

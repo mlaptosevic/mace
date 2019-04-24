@@ -2,8 +2,13 @@ import * as React from 'react';
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
+import * as axios from "axios";
 
 class Maca extends React.Component {
+
+    likeIt = (id) => {
+
+    };
 
     render() {
         return (
@@ -14,8 +19,8 @@ class Maca extends React.Component {
                 <Card.Text>
                     Male cica mace
                 </Card.Text>
-                <Button variant="primary">
-                    Profile <Badge variant="light">{this.props.likes}</Badge>
+                <Button variant="primary" onClick={() => this.likeIt(this.props.id)}>
+                    Like<Badge variant="light">{this.props.likes}</Badge>
                     <span className="sr-only">Like</span>
                 </Button>
             </Card.Body>
