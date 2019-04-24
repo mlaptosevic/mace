@@ -5,8 +5,6 @@ import Badge from "react-bootstrap/Badge";
 
 class Maca extends React.Component {
 
-
-
     render() {
         return (
         <Card style={{width: '18rem', flex: '1 0 15%', margin: '10px'}}>

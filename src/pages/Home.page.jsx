@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as axios from 'axios';
 import Maca from "../components/Maca.component";
 import './Home.css';
+import Http from "../service/Http.service";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -12,22 +12,25 @@ class HomePage extends React.Component {
         }
     }
 
-    likeIt = (id) => {
-        axios.post(`https://eajcrbbnc1.execute-api.eu-central-1.amazonaws.com/dev/maca/${id}/like`).then(response => {
-            if (response.status === 204) {
-                console.log('All ok');
-                this.getAll();
-                return;
-            }
-            console.log('Unknown status');
-        });
+    likeItWrapper = async (id) => {
+       this.likeIt(id);
     };
 
-    getAll = () => {
-        axios.get('https://eajcrbbnc1.execute-api.eu-central-1.amazonaws.com/dev/maca').then(response => {
-            console.log(response);
-            this.setState({mace: response.data});
-        });
+    likeIt = async (id) => {
+        const response = await Http.post(`/maca/${id}/like`);
+
+        if (response.status !== 204) {
+            console.log('Unknown status');
+            return;
+        }
+
+        console.log('All ok');
+        await this.getAll();
+    };
+
+    getAll = async () => {
+        const response = await Http.get('/maca');
+        this.setState({mace: response.data});
     };
 
     componentDidMount() {
@@ -37,7 +40,7 @@ class HomePage extends React.Component {
     render() {
         const maceComponents = this.state.mace.map((maca) => {
             return (<Maca key={maca.id} id={maca.id} name={maca.name} likes={maca.likes} imageUrl={maca.imageUrl}
-                          likeIt={this.likeIt}/>);
+                          likeIt={this.likeItWrapper}/>);
         });
 
         return (
